@@ -7,6 +7,13 @@ on:
       base_branch:
         required: true
         type: string
+      author:
+        required: true
+        type: string
+      aqua_version:
+        required: true
+        type: string
+
       title:
         required: false
         type: string
@@ -15,21 +22,15 @@ on:
         required: false
         type: string
         default: 'docs: generate document by yodoc'
-      author:
-        required: true
-        type: string
-      aqua_version:
-        required: true
-        type: string
       branch_prefix:
         required: false
         type: string
         default: generate-doc-
     secrets:
       gh_app_id:
-        required: false
+        required: true
       gh_app_private_key:
-        required: false
+        required: true
 
 jobs:
   check-create-pr:
