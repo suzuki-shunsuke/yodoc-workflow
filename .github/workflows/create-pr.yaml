@@ -67,7 +67,7 @@ jobs:
       pull-requests: write
     # prevent infinite loop
     if: |
-      !fromJson(needs.check-generate-doc.outputs.ignored)
+      !fromJson(needs.check-create-pr.outputs.ignored)
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - uses: aquaproj/aqua-installer@6ce1f8848ec8e61f14d57bd5d7597057a6dd187c # v3.0.1
@@ -162,7 +162,7 @@ jobs:
           TITLE: ${{inputs.title}}
           GITHUB_TOKEN: ${{steps.token.outputs.token}}
           BRANCH: "${{steps.branch.outputs.branch}}"
-          PR_URL: "${{needs.check-generate-doc.outputs.pr_url}}"
+          PR_URL: "${{needs.check-create-pr.outputs.pr_url}}"
 
       - run: |
           github-comment post \
@@ -171,8 +171,8 @@ jobs:
         if: failure()
         env:
           GITHUB_TOKEN: ${{github.token}}
-          GH_COMMENT_PR_NUMBER: ${{needs.check-generate-doc.outputs.pr_number}}
-          PR_AUTHOR: ${{needs.check-generate-doc.outputs.pr_author}}
+          GH_COMMENT_PR_NUMBER: ${{needs.check-create-pr.outputs.pr_number}}
+          PR_AUTHOR: ${{needs.check-create-pr.outputs.pr_author}}
           TEMPLATE: |
             ## :x: Failed to generate document
 
