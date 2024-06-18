@@ -63,9 +63,7 @@ jobs:
   create-pr:
     runs-on: ubuntu-latest
     needs: check-create-pr
-    permissions:
-      contents: write
-      pull-requests: write
+    permissions: {}
     # prevent infinite loop
     if: |
       !fromJson(needs.check-create-pr.outputs.ignored)
@@ -171,7 +169,7 @@ jobs:
              -template "$TEMPLATE"
         if: failure()
         env:
-          GITHUB_TOKEN: ${{github.token}}
+          GITHUB_TOKEN: ${{steps.token.outputs.token}}
           GH_COMMENT_PR_NUMBER: ${{needs.check-create-pr.outputs.pr_number}}
           PR_AUTHOR: ${{needs.check-create-pr.outputs.pr_author}}
           TEMPLATE: |
